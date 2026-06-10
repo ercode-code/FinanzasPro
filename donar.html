@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apoyar a FinanzasPro | Donación Voluntaria y Segura</title>
+    
+    <!-- SEO Meta Tags Esenciales -->
+    <meta name="description" content="Apoya el desarrollo independiente de FinanzasPro. Tu donación ayuda a mantener nuestros servidores activos y financiar las APIs de Inteligencia Artificial para ofrecerte consejos financieros inteligentes.">
+    <meta name="keywords" content="donar, apoyar finanzaspro, donación voluntaria, stripe simulado, fintech inteligente, ahorro inteligente, finanzas personales">
+    <meta name="author" content="FinanzasPro Team">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tusitio.com/donar">
+    <meta property="og:title" content="Apoyar a FinanzasPro | Financiación Colectiva Inteligente">
+    <meta property="og:description" content="Ayúdanos a mantener vivas las recomendaciones de IA. Haz una donación simulada o real de forma totalmente segura.">
+    <meta property="og:image" content="https://tusitio.com/assets/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Script de inicialización de Tema para evitar flash blanco -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+
+    <style>
+        /* Estilos específicos de la página de donaciones */
+        .donation-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 25px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            transform: translateX(-5px);
+            color: var(--color-primary-hover);
+        }
+
+        .donation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .donation-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        /* Hero Card */
+        .donation-hero {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 35px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .donation-hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--color-primary), #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .donation-hero p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .cost-breakdown {
+            margin: 25px 0;
+            padding: 20px;
+            background-color: var(--bg-input);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .cost-breakdown h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .cost-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .cost-item span i {
+            width: 20px;
+            color: var(--color-primary);
+        }
+
+        /* Amount Selector */
+        .amount-selector {
+            margin-top: 30px;
+        }
+
+        .amount-selector h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .preset-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .amount-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 15px 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .amount-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            transform: translateY(-2px);
+        }
+
+        .amount-btn.active {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(67, 56, 202, 0.3);
+        }
+
+        /* Custom Input Inside Selector */
+        .custom-amount-wrapper {
+            margin-top: 15px;
+        }
+
+        /* 3D Flipping Credit Card Visual */
+        .card-perspective {
+            perspective: 1000px;
+            margin-bottom: 25px;
+        }
+
+        .credit-card-mock {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .credit-card-mock.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            padding: 24px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            background: linear-gradient(135deg, #1e1b4b, #312e81, #4338ca);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-face.back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, #312e81, #1e1b4b, #0f172a);
+            padding: 20px 0;
+        }
+
+        /* Front elements */
+        .card-brand-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-chip {
+            width: 45px;
+            height: 35px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-chip::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0,0,0,0.1) 4px, rgba(0,0,0,0.1) 8px),
+                        repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0,0,0,0.1) 4px, rgba(0,0,0,0.1) 8px);
+        }
+
+        .card-number-display {
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            word-spacing: 5px;
+        }
+
+        .card-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 2px;
+        }
+
+        .card-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            max-width: 180px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .card-value.expiry {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1rem;
+        }
+
+        /* Back elements */
+        .card-magnetic-stripe {
+            height: 45px;
+            background-color: #000;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .card-signature-area {
+            margin: 15px 24px;
+            display: flex;
+            align-items: center;
+        }
+
+        .signature-strip {
+            background-color: #fff;
+            color: #333;
+            height: 35px;
+            flex-grow: 1;
+            padding: 0 10px;
+            font-family: 'Brush Script MT', cursive, sans-serif;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            border-radius: 4px;
+            background-image: repeating-linear-gradient(45deg, #e2e8f0, #e2e8f0 10px, #fff 10px, #fff 20px);
+        }
+
+        .cvv-display {
+            background-color: #f59e0b;
+            color: #000;
+            width: 45px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+
+        .card-back-text {
+            font-size: 0.6rem;
+            opacity: 0.5;
+            padding: 0 24px;
+            line-height: 1.3;
+        }
+
+        /* Form styling extension */
+        .checkout-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .checkout-card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkout-card h2 i {
+            color: var(--color-success);
+        }
+
+        .input-inline-group {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+        }
+
+        .checkout-secure-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .checkout-secure-badge i {
+            color: #10b981;
+        }
+
+        /* Success Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .success-modal {
+            background-color: var(--bg-card);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            transform: scale(0.8) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-overlay.active .success-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--color-success-bg);
+            color: var(--color-success);
+            font-size: 3rem;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            animation: pop-bounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s both;
+        }
+
+        @keyframes pop-bounce {
+            0% { transform: scale(0); }
+            70% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        .success-modal h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--text-main);
+        }
+
+        .success-modal p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .btn-modal-close {
+            background: linear-gradient(135deg, var(--color-primary), #6366f1);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(67, 56, 202, 0.3);
+        }
+
+        .btn-modal-close:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        /* Sparkle/Confetti Canvas */
+        #confetti-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Selector de Métodos de Pago (Tabs) */
+        .payment-method-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            background-color: var(--bg-input);
+            padding: 6px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .method-tab {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 10px;
+            border-radius: calc(var(--radius-md) - 2px);
+            border: none;
+            background: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .method-tab:hover {
+            color: var(--text-main);
+        }
+
+        .method-tab.active {
+            background-color: var(--bg-card);
+            color: var(--color-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Paneles */
+        .stripe-panel.hidden,
+        .paypal-panel.hidden {
+            display: none;
+        }
+
+        /* Panel de PayPal */
+        .paypal-panel {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .paypal-info-box {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .paypal-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+
+        .paypal-info-item i {
+            color: #0070ba;
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+
+        /* Botón de PayPal Oficial */
+        .btn-paypal {
+            background: linear-gradient(135deg, #ffc439, #ffb300);
+            color: #003087;
+            border: none;
+            padding: 16px 28px;
+            border-radius: var(--radius-md);
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(255, 196, 57, 0.25);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+        }
+
+        .btn-paypal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(255, 196, 57, 0.4);
+            filter: brightness(1.03);
+        }
+
+        .btn-paypal:active {
+            transform: translateY(0);
+        }
+
+        .btn-paypal i {
+            font-size: 1.4rem;
+        }
+
+        .paypal-secure-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .paypal-secure-badge i {
+            color: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <div class="donation-container">
+        <div class="top-nav" style="margin-bottom: 20px; position: relative;">
+            <div class="logo">
+                <img src="images/logo.png" alt="FinanzasPro" class="logo-img">
+                <span>Finanzas<strong>Pro</strong></span>
+                <span style="font-size: 0.85rem; padding: 2px 8px; background-color: var(--color-success-bg); color: var(--color-success); border-radius: 9999px; margin-left: 8px;">Patrocinio</span>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Abrir menú">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="user-profile" id="mobile-menu">
+                <div class="dashboard-nav-links no-print">
+                    <a href="finanzas.html" class="btn-back" style="margin-bottom: 0;">
+                        <i class="fa-solid fa-arrow-left"></i> Dashboard
+                    </a>
+                    <a href="terminos.html" class="btn-back" style="margin-bottom: 0; color: var(--text-muted);">
+                        <i class="fa-solid fa-scale-balanced"></i> Términos
+                    </a>
+                    <a href="index.html" class="btn-back" style="margin-bottom: 0; color: var(--text-muted);">
+                        <i class="fa-solid fa-house"></i> Inicio
+                    </a>
+                </div>
+                <span id="user-display" class="placeholder-text" style="font-size: 0.9rem; color: var(--text-muted);">Invitado</span>
+                <label class="theme-switch" title="Cambiar tema">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="theme-slider">
+                        <span class="theme-circle">
+                            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.01c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/></svg>
+                            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.7 3.3-8.8 8-9.7.5-.1 1 .3 1 .8s-.3.9-.8 1c-3.6.8-6.2 4-6.2 7.9 0 4.4 3.6 8 8 8 3.9 0 7.1-2.6 7.9-6.2.1-.5.6-.8 1-.8.5 0 .9.4.8 1-.9 4.7-5 8-9.7 8z"/></svg>
+                        </span>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <div class="donation-grid">
+            <!-- Columna Izquierda: Información -->
+            <div class="donation-hero-column">
+                <div class="donation-hero">
+                    <h1>Apoya FinanzasPro</h1>
+                    <p>FinanzasPro es un proyecto independiente desarrollado para ayudarte a tomar el control absoluto de tu dinero de forma inteligente. No vendemos tus datos ni mostramos anuncios molestos.</p>
+                    <p>Tu contribución voluntaria nos ayuda directamente a cubrir los costos operativos y seguir implementando mejoras de vanguardia.</p>
+                    
+                    <div class="cost-breakdown">
+                        <h3>¿A qué se destina tu apoyo?</h3>
+                        <div class="cost-item">
+                            <span><i class="fa-solid fa-brain"></i> Consultas de IA (Gemini API)</span>
+                            <strong>50%</strong>
+                        </div>
+                        <div class="cost-item">
+                            <span><i class="fa-solid fa-server"></i> Servidores y Bases de Datos</span>
+                            <strong>30%</strong>
+                        </div>
+                        <div class="cost-item">
+                            <span><i class="fa-solid fa-code"></i> Soporte y Nuevas Funcionalidades</span>
+                            <strong>20%</strong>
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 0.9rem; font-style: italic; margin-bottom: 0;">* Nota: Esta pasarela es una simulación de pagos interactiva de alta fidelidad con fines de demostración de Stripe. No se procesará ningún cargo real a tu tarjeta.</p>
+                </div>
+
+                <!-- Selector de Montos -->
+                <div class="amount-selector card">
+                    <h2>1. Selecciona un monto a donar</h2>
+                    <div class="preset-grid">
+                        <button class="amount-btn active" data-amount="5">$5</button>
+                        <button class="amount-btn" data-amount="10">$10</button>
+                        <button class="amount-btn" data-amount="25">$25</button>
+                        <button class="amount-btn" data-amount="50">$50</button>
+                    </div>
+                    <div class="custom-amount-wrapper">
+                        <label for="custom-amount">O introduce un monto personalizado (USD):</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-dollar-sign"></i>
+                            <input type="number" id="custom-amount" min="1" max="9999" placeholder="Otro monto" title="Monto personalizado">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Pago Interactivo -->
+            <div class="checkout-column">
+                <!-- Selector de Métodos de Pago -->
+                <div class="payment-method-selector">
+                    <button class="method-tab active" data-target="paypal-panel">
+                        <i class="fa-brands fa-paypal"></i> Donación Real (PayPal)
+                    </button>
+                    <button class="method-tab" data-target="stripe-panel">
+                        <i class="fa-solid fa-flask"></i> Simulación (Stripe)
+                    </button>
+                </div>
+
+                <!-- Panel de PayPal Real -->
+                <div id="paypal-panel" class="paypal-panel">
+                    <h2 style="font-size: 1.3rem; margin-bottom: 5px; font-weight: 700; display: flex; align-items: center; gap: 10px;"><i class="fa-brands fa-paypal" style="color: #0070ba;"></i> Donación Segura con PayPal</h2>
+                    <p style="margin: 0; font-size: 0.95rem; color: var(--text-muted); line-height: 1.5;">
+                        Puedes realizar tu aporte voluntario a través de PayPal. Es rápido, seguro y no requiere compartir tus datos financieros con nosotros.
+                    </p>
+                    
+                    <div class="paypal-info-box">
+                        <div class="paypal-info-item">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <div>
+                                <strong style="font-size: 0.95rem; display: block; margin-bottom: 2px;">Transacciones Protegidas</strong>
+                                <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">El proceso de pago es encriptado y manejado directamente en los servidores seguros de PayPal.</p>
+                            </div>
+                        </div>
+                        <div class="paypal-info-item">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                            <div>
+                                <strong style="font-size: 0.95rem; display: block; margin-bottom: 2px;">Apoyo Directo al Proyecto</strong>
+                                <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">El 100% de los fondos recibidos se destinan a servidores, infraestructura y consumo de APIs de IA.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botón de Redirección PayPal -->
+                    <a href="#" id="paypal-btn" target="_blank" rel="noopener noreferrer" class="btn-paypal">
+                        <i class="fa-brands fa-paypal"></i> Donar <span id="paypal-btn-amount">$5.00</span> USD con PayPal
+                    </a>
+                    
+                    <div class="paypal-secure-badge">
+                        <i class="fa-solid fa-shield-halved"></i> Conexión SSL de 256 bits certificada por PayPal
+                    </div>
+                </div>
+
+                <!-- Panel de Stripe Simulado -->
+                <div id="stripe-panel" class="stripe-panel hidden">
+                    <!-- Visual 3D de la tarjeta -->
+                    <div class="card-perspective">
+                        <div class="credit-card-mock" id="credit-card-mock">
+                            <!-- Cara Frontal -->
+                            <div class="card-face front">
+                                <div class="card-brand-row">
+                                    <i class="fa-solid fa-wifi" style="transform: rotate(90deg); font-size: 1.1rem; opacity: 0.8;"></i>
+                                    <span style="font-weight: 800; font-size: 1.1rem; letter-spacing: 1px;"><i class="fa-solid fa-wallet" style="margin-right: 4px;"></i>FinanzasPro</span>
+                                </div>
+                                <div class="card-chip"></div>
+                                <div class="card-number-display" id="card-number-display">•••• •••• •••• ••••</div>
+                                <div class="card-info-row">
+                                    <div>
+                                        <div class="card-label">Titular</div>
+                                        <div class="card-value" id="card-holder-display">TU NOMBRE AQUÍ</div>
+                                    </div>
+                                    <div>
+                                        <div class="card-label">Vence</div>
+                                        <div class="card-value expiry" id="card-expiry-display">MM/AA</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Cara Trasera -->
+                            <div class="card-face back">
+                                <div class="card-magnetic-stripe"></div>
+                                <div class="card-signature-area">
+                                    <div class="signature-strip" id="signature-display">Titular</div>
+                                    <div class="cvv-display" id="card-cvv-display">•••</div>
+                                </div>
+                                <p class="card-back-text">Esta tarjeta es simulada de forma segura para la demostración de Stripe. No ingrese datos financieros confidenciales reales.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formulario de Pago de Stripe Simulado -->
+                    <div class="checkout-card">
+                        <h2><i class="fa-solid fa-shield-halved"></i> Detalles de Facturación</h2>
+                        <form id="donation-form" onsubmit="event.preventDefault();">
+                            <div class="form-group">
+                                <label for="card-holder">Nombre en la tarjeta</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="card-holder" required placeholder="Nombre completo" autocomplete="cc-name" title="Nombre en la tarjeta">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="card-number">Número de tarjeta</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-credit-card"></i>
+                                    <input type="text" id="card-number" required placeholder="4000 1234 5678 9010" maxlength="19" autocomplete="cc-number" title="Número de tarjeta">
+                                </div>
+                            </div>
+
+                            <div class="input-inline-group">
+                                <div class="form-group">
+                                    <label for="card-expiry">Fecha de vencimiento</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-regular fa-calendar-days"></i>
+                                        <input type="text" id="card-expiry" required placeholder="MM/AA" maxlength="5" autocomplete="cc-exp" title="Fecha de vencimiento">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="card-cvv">CVV</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-lock"></i>
+                                        <input type="password" id="card-cvv" required placeholder="123" maxlength="4" autocomplete="cc-csc" title="Código de seguridad">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="submit-pay-btn" class="btn-primary" style="margin-top: 10px;">
+                                <i class="fa-solid fa-heart" style="color: #f43f5e;"></i> Donar $5.00 USD
+                            </button>
+                            
+                            <div class="checkout-secure-badge">
+                                <i class="fa-solid fa-lock"></i> Pago Encriptado SSL de 256 bits via Stripe Demo
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Agradecimiento Exitoso -->
+    <div class="modal-overlay" id="success-modal-overlay">
+        <div class="success-modal">
+            <canvas id="confetti-canvas"></canvas>
+            <div class="modal-icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h2>¡Donación Recibida!</h2>
+            <p id="success-msg-text">¡Muchísimas gracias por apoyar a FinanzasPro! Tu generosa contribución simulada de <strong>$5.00 USD</strong> nos ayuda directamente a continuar ofreciendo asesoramiento financiero inteligente.</p>
+            <button class="btn-modal-close" id="modal-close-btn">
+                Volver al Panel Principal
+            </button>
+        </div>
+    </div>
+
+    <!-- Firebase Compat SDKs (Para leer si el usuario está logueado y pre-cargar su nombre/mail) -->
+    <script defer src="/__/firebase/12.13.0/firebase-app-compat.js"></script>
+    <script defer src="/__/firebase/12.13.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Gestión de Tema ---
+            const themeToggle = document.getElementById('theme-toggle');
+            
+            function updateThemeUI() {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                themeToggle.checked = isDark;
+            }
+            updateThemeUI();
+
+            themeToggle.addEventListener('change', () => {
+                if (themeToggle.checked) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // --- Escucha de Usuario Logueado (Firebase) ---
+            const userDisplay = document.getElementById('user-display');
+            const cardHolderInput = document.getElementById('card-holder');
+            const cardHolderDisplay = document.getElementById('card-holder-display');
+            const signatureDisplay = document.getElementById('signature-display');
+
+            // Timeout de Firebase en caso de estar cargando localmente
+            setTimeout(() => {
+                if (window.firebase) {
+                    firebase.auth().onAuthStateChanged(user => {
+                        if (user) {
+                            userDisplay.textContent = user.email;
+                            userDisplay.classList.remove('placeholder-text');
+                            
+                            // Prefiltrar nombre simulado
+                            const displayName = user.displayName || user.email.split('@')[0];
+                            cardHolderInput.value = displayName;
+                            cardHolderDisplay.textContent = displayName.toUpperCase();
+                            signatureDisplay.textContent = displayName;
+                        }
+                    });
+                }
+            }, 800);
+
+            // --- Cambio de Métodos de Pago (Tabs) ---
+            const methodTabs = document.querySelectorAll('.method-tab');
+            const paypalPanel = document.getElementById('paypal-panel');
+            const stripePanel = document.getElementById('stripe-panel');
+
+            methodTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    methodTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const target = this.getAttribute('data-target');
+                    if (target === 'paypal-panel') {
+                        paypalPanel.classList.remove('hidden');
+                        stripePanel.classList.add('hidden');
+                    } else {
+                        stripePanel.classList.remove('hidden');
+                        paypalPanel.classList.add('hidden');
+                    }
+                });
+            });
+
+            // --- Gestión de Donación ---
+            let currentDonationAmount = 5;
+            const presetButtons = document.querySelectorAll('.amount-btn');
+            const customAmountInput = document.getElementById('custom-amount');
+            const submitPayBtn = document.getElementById('submit-pay-btn');
+            const paypalBtn = document.getElementById('paypal-btn');
+            const paypalBtnAmount = document.getElementById('paypal-btn-amount');
+
+            function getPayPalUrl(amount) {
+                const business = 'ercode.10@gmail.com';
+                const itemName = encodeURIComponent('Apoyo y Donación a FinanzasPro');
+                return `https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=${encodeURIComponent(business)}&item_name=${itemName}&amount=${amount.toFixed(2)}&currency_code=USD&no_shipping=1`;
+            }
+
+            function updateAmount(amount) {
+                currentDonationAmount = parseFloat(amount) || 0;
+                
+                // Formatear botón de Stripe simulado
+                submitPayBtn.innerHTML = `<i class="fa-solid fa-heart" style="color: #f43f5e;"></i> Donar $${currentDonationAmount.toFixed(2)} USD`;
+                
+                // Formatear botón y enlace de PayPal real
+                paypalBtnAmount.textContent = `$${currentDonationAmount.toFixed(2)}`;
+                paypalBtn.href = getPayPalUrl(currentDonationAmount);
+            }
+
+            // Inicializar enlace de PayPal al cargar la página
+            updateAmount(currentDonationAmount);
+
+            presetButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    presetButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    customAmountInput.value = ''; // Limpiar personalizado
+                    updateAmount(this.getAttribute('data-amount'));
+                });
+            });
+
+            customAmountInput.addEventListener('input', function() {
+                presetButtons.forEach(b => b.classList.remove('active'));
+                let val = parseFloat(this.value);
+                if (val < 1) val = 1;
+                if (val > 9999) val = 9999;
+                updateAmount(val);
+            });
+
+            // --- Interacciones Dinámicas de Tarjeta de Crédito ---
+            const creditCardMock = document.getElementById('credit-card-mock');
+            const cardNumInput = document.getElementById('card-number');
+            const cardExpiryInput = document.getElementById('card-expiry');
+            const cardCvvInput = document.getElementById('card-cvv');
+
+            const cardNumDisplay = document.getElementById('card-number-display');
+            const cardExpiryDisplay = document.getElementById('card-expiry-display');
+            const cardCvvDisplay = document.getElementById('card-cvv-display');
+
+            // Giro al enfocar CVV
+            cardCvvInput.addEventListener('focus', () => {
+                creditCardMock.classList.add('flipped');
+            });
+            cardCvvInput.addEventListener('blur', () => {
+                creditCardMock.classList.remove('flipped');
+            });
+
+            // Giro al hacer click en la tarjeta misma
+            creditCardMock.addEventListener('click', () => {
+                creditCardMock.classList.toggle('flipped');
+            });
+
+            // Actualización de inputs en la tarjeta
+            cardHolderInput.addEventListener('input', function() {
+                const val = this.value.toUpperCase();
+                cardHolderDisplay.textContent = val || 'TU NOMBRE AQUÍ';
+                signatureDisplay.textContent = this.value || 'Titular';
+            });
+
+            // Formatear número de tarjeta (Grupos de 4)
+            cardNumInput.addEventListener('input', function() {
+                let val = this.value.replace(/\D/g, '');
+                let formatted = '';
+                for (let i = 0; i < val.length; i++) {
+                    if (i > 0 && i % 4 === 0) formatted += ' ';
+                    formatted += val[i];
+                }
+                this.value = formatted;
+                
+                // Rellenar lo restante en la visualización
+                let displayVal = formatted;
+                while (displayVal.replace(/\s/g, '').length < 16) {
+                    displayVal += '•';
+                    if (displayVal.replace(/\s/g, '').length % 4 === 0 && displayVal.replace(/\s/g, '').length < 16) {
+                        displayVal += ' ';
+                    }
+                }
+                // Formato exacto en bloques de 4 para los bullet points
+                let blocks = displayVal.split(' ');
+                cardNumDisplay.textContent = blocks.join(' ');
+            });
+
+            // Formatear Expiración (MM/AA)
+            cardExpiryInput.addEventListener('input', function() {
+                let val = this.value.replace(/\D/g, '');
+                if (val.length > 2) {
+                    val = val.substring(0, 2) + '/' + val.substring(2, 4);
+                }
+                this.value = val;
+                cardExpiryDisplay.textContent = val || 'MM/AA';
+            });
+
+            // Formatear CVV
+            cardCvvInput.addEventListener('input', function() {
+                let val = this.value.replace(/\D/g, '');
+                this.value = val;
+                cardCvvDisplay.textContent = '•'.repeat(val.length) || '•••';
+            });
+
+            // --- Formulario de Envió (Simulado con Stripe spinner y modal de éxito) ---
+            const donationForm = document.getElementById('donation-form');
+            const successOverlay = document.getElementById('success-modal-overlay');
+            const successMsgText = document.getElementById('success-msg-text');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+
+            donationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                if (currentDonationAmount <= 0) {
+                    showToast('Por favor, selecciona un monto válido.', 'error');
+                    return;
+                }
+
+                // Deshabilitar botón y mostrar loading
+                submitPayBtn.disabled = true;
+                const originalContent = submitPayBtn.innerHTML;
+                submitPayBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Procesando con Stripe...';
+
+                // Simular tiempo de conexión con pasarela de pagos
+                setTimeout(() => {
+                    submitPayBtn.disabled = false;
+                    submitPayBtn.innerHTML = originalContent;
+
+                    // Abrir modal de éxito y actualizar texto
+                    successMsgText.innerHTML = `¡Muchísimas gracias por apoyar a <strong>FinanzasPro</strong>! Tu contribución simulada de <strong style="color: var(--color-success); font-size: 1.15rem;">$${currentDonationAmount.toFixed(2)} USD</strong> nos ayuda directamente a continuar financiando servidores e Inteligencia Artificial para ofrecerte consejos financieros excelentes.`;
+                    successOverlay.classList.add('active');
+
+                    // Lanzar efecto Confetti
+                    initConfetti();
+                }, 2000);
+            });
+
+            modalCloseBtn.addEventListener('click', () => {
+                successOverlay.classList.remove('active');
+                window.location.href = 'finanzas.html';
+            });
+
+            // --- Utilidad Toast ---
+            function showToast(message, type = 'success') {
+                const toastContainer = document.getElementById('toast-container');
+                if (!toastContainer) return;
+
+                const toast = document.createElement('div');
+                toast.classList.add('toast', type);
+                
+                const icon = type === 'success' ? 'fa-check-circle' : 'fa-circle-xmark';
+                
+                toast.innerHTML = `
+                    <i class="fa-solid ${icon}"></i>
+                    <span>${message}</span>
+                `;
+                
+                toastContainer.appendChild(toast);
+                
+                void toast.offsetWidth;
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+
+            // --- Motor de Confetti Simple en Canvas ---
+            function initConfetti() {
+                const canvas = document.getElementById('confetti-canvas');
+                const ctx = canvas.getContext('2d');
+                
+                // Redimensionar canvas a la escala del modal
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight;
+
+                const colors = ['#4338ca', '#10b981', '#f59e0b', '#ec4899', '#3b82f6'];
+                const confettiCount = 100;
+                const confetti = [];
+
+                for (let i = 0; i < confettiCount; i++) {
+                    confetti.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height - canvas.height,
+                        r: Math.random() * 6 + 4,
+                        d: Math.random() * confettiCount,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        tilt: Math.random() * 10 - 5,
+                        tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+                        tiltAngle: 0
+                    });
+                }
+
+                let animationFrameId;
+                
+                function draw() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    let remaining = false;
+                    confetti.forEach((p, index) => {
+                        p.tiltAngle += p.tiltAngleIncremental;
+                        p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+                        p.x += Math.sin(p.tiltAngle);
+                        p.tilt = Math.sin(p.tiltAngle - index / 3) * 15;
+
+                        if (p.y <= canvas.height) {
+                            remaining = true;
+                        }
+
+                        ctx.beginPath();
+                        ctx.lineWidth = p.r;
+                        ctx.strokeStyle = p.color;
+                        ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+                        ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+                        ctx.stroke();
+                    });
+
+                    if (remaining) {
+                        animationFrameId = requestAnimationFrame(draw);
+                    } else {
+                        cancelAnimationFrame(animationFrameId);
+                    }
+                }
+
+                draw();
+            }
+        });
+
+        // --- Lógica del menú móvil ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('mobile-menu-active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    if (mobileMenu.classList.contains('mobile-menu-active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-xmark');
+                    } else {
+                        icon.classList.remove('fa-xmark');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

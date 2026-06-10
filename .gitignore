@@ -1,0 +1,32 @@
+# Archivos del Sistema Operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos del IDE / Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Archivos Temporales y Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencias (si eventualmente se añaden)
+node_modules/
+
+# Directorios de Build
+dist/
+build/
+out/
+
+# Configuración local de Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
