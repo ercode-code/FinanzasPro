@@ -383,22 +383,88 @@ function updateChartsFromData(totalIncome = null, totalExpense = null) {
 function updateAIAdvice(income, expense) {
     if (!aiInsightText) return;
 
-    let advice = "";
-    const currentBalance = income - expense;
     const ratio = income > 0 ? (expense / income) : (expense > 0 ? 1 : 0);
 
+    // ── Consejos: Sin datos ──────────────────────────────────────────────────
+    const tipsEmpty = [
+        "Empieza a registrar tus movimientos para recibir consejos personalizados de ahorro.",
+        "Cada peso cuenta. Registra tus primeros ingresos y gastos para ver tu panorama financiero real.",
+        "El primer paso hacia la libertad financiera es conocer en qué gastas tu dinero.",
+        "Sin datos no hay diagnóstico. Agrega tus transacciones y la IA te dará consejos a medida.",
+        "Llevar un registro diario de gastos es el hábito número uno de las personas con finanzas sanas."
+    ];
+
+    // ── Consejos: Gastos críticos (ratio > 0.9) ──────────────────────────────
+    const tipsCritical = [
+        "⚠️ Tus gastos están muy cerca de tus ingresos. Aplica la regla del 50/30/20: 50% necesidades, 30% deseos y 20% ahorro.",
+        "⚠️ Zona de peligro: menos del 10% libre de tu ingreso. Revisa cada suscripción y cancela las que no uses activamente.",
+        "⚠️ Tus finanzas están al límite. Establece un fondo de emergencia de al menos 3 meses de gastos antes de cualquier otro objetivo.",
+        "⚠️ Con este margen tan ajustado, un imprevisto podría desequilibrar tu economía. Intenta reducir al menos un gasto discrecional esta semana.",
+        "⚠️ Considera el método 'sobre' o 'cash stuffing': asigna efectivo físico a cada categoría de gasto para evitar excederte.",
+        "⚠️ Tu ratio de gastos es muy alto. Busca al menos un 'gasto hormiga' que puedas eliminar hoy mismo — café, snacks o apps que no usas.",
+        "⚠️ Con ingresos tan ajustados a los gastos, prioriza: primero vivienda y alimentación, luego todo lo demás.",
+        "⚠️ Revisa si tus servicios de streaming, gym o membresías están siendo aprovechados al 100%. Cancelar uno puede liberar dinero valioso.",
+        "⚠️ Podrías negociar tarifas más bajas con tus proveedores de internet, teléfono o seguros. Muchas empresas ofrecen descuentos si preguntas.",
+        "⚠️ Documenta cada compra impulsiva que hagas esta semana. Ver el patrón te ayudará a identificar dónde perdes control del presupuesto."
+    ];
+
+    // ── Consejos: Excelente gestión (ratio < 0.5) ────────────────────────────
+    const tipsExcellent = [
+        "✨ ¡Excelente! Estás ahorrando más del 50% de tus ingresos. Considera diversificar en fondos indexados de bajo costo.",
+        "✨ Con este nivel de ahorro puedes construir un patrimonio sólido. Investiga los fondos de inversión locales o ETFs internacionales.",
+        "✨ Tu disciplina financiera es sobresaliente. Asegúrate de que ese ahorro no se quede ocioso: busca cuentas de alto rendimiento.",
+        "✨ Ahorro del 50%+ es increíble. El siguiente nivel es que tu dinero trabaje para ti: bienes raíces, dividendos o negocios.",
+        "✨ ¡Vas muy bien! Evalúa abrir un plan de pensión complementaria para asegurar tu retiro con estos excedentes.",
+        "✨ Con este superávit puedes permitirte una meta de ahorro agresiva: vacaciones, casa propia o fondo educativo en pocos años.",
+        "✨ Mantén este ritmo y en 5 años habrás acumulado el equivalente a 2.5 años de ingresos. La constancia es tu mejor aliada.",
+        "✨ Tienes margen para experimentar: reserva un pequeño porcentaje (5-10%) para inversiones de mayor riesgo/retorno como criptoactivos o acciones individuales.",
+        "✨ Recuerda el principio de 'págate primero': transfiere tu ahorro al inicio del mes antes de gastar, no con lo que sobre.",
+        "✨ ¡Felicidades! Eres parte del grupo minoritario que ahorra más de lo que gasta. Comparte este hábito con quienes te rodean."
+    ];
+
+    // ── Consejos: Déficit (expense > income) ─────────────────────────────────
+    const tipsDeficit = [
+        "❗ Alerta: Estás gastando más de lo que ganas. Identifica los 'gastos hormiga' que drenan tu bolsillo sin que lo notes.",
+        "❗ Déficit detectado. Haz una lista de todos tus gastos y márcalos como 'necesario', 'deseable' o 'prescindible'. Elimina los últimos.",
+        "❗ Gastas más de lo que ingresa. Considera un segundo ingreso: freelance, venta de artículos usados o servicio en tu comunidad.",
+        "❗ El crédito no es ingreso. Si estás usando tarjetas o préstamos para cubrir gastos del mes, es una señal de alerta urgente.",
+        "❗ Un presupuesto de emergencia es la prioridad ahora mismo. Reduce cualquier gasto no vital hasta recuperar el equilibrio.",
+        "❗ Cada día con este déficit acumula deuda silenciosa. Actúa hoy: congela gastos no esenciales por al menos 30 días.",
+        "❗ Busca apoyo: hay aplicaciones, comunidades y asesores financieros gratuitos que pueden ayudarte a reestructurar tus gastos.",
+        "❗ Revisa si tienes gastos automáticos que olvidaste cancelar: suscripciones, seguros innecesarios o membresías antiguas.",
+        "❗ Una buena táctica: el 'mes de austeridad'. Durante 30 días, solo gastos estrictamente necesarios. Sorprende lo que se ahorra.",
+        "❗ Si el déficit persiste, considera refinanciar deudas a tasas menores para reducir el gasto mensual en intereses."
+    ];
+
+    // ── Consejos: Balance saludable (balanced) ───────────────────────────────
+    const tipsBalanced = [
+        "Buen trabajo. Automatiza una transferencia a tu cuenta de ahorros apenas recibas ingresos para hacer el ahorro inevitable.",
+        "Vas bien. Considera la regla del 1%: cada mes intenta gastar un 1% menos y ahorra esa diferencia.",
+        "Tu balance es positivo. Un buen siguiente paso es crear un fondo de emergencia equivalente a 3-6 meses de gastos.",
+        "Mantienes equilibrio financiero. Piensa en diversificar: distintas cuentas de ahorro para distintos objetivos (vacaciones, auto, vivienda).",
+        "Con este balance puedes permitirte pequeños lujos sin culpa, siempre que no comprometan tus metas de ahorro a largo plazo.",
+        "Aprovecha este momento estable para educarte financieramente: podcasts, libros y cursos gratuitos pueden transformar tu relación con el dinero.",
+        "Buen ritmo. Asegúrate de revisar tu presupuesto mensualmente y ajustarlo según cambios de vida: ascenso, nueva renta, hijos, etc.",
+        "El equilibrio actual es una base perfecta. Da el siguiente paso: investiga si tu empleador ofrece beneficios de ahorro o pensión que aún no estés aprovechando.",
+        "Mantén esta disciplina. La consistencia a lo largo del tiempo es más poderosa que cualquier ingreso extraordinario.",
+        "Tu situación es estable. Para mejorarla, aplica el 'método avalancha': paga primero las deudas con mayor tasa de interés y libera más dinero cada mes."
+    ];
+
+    // Elegir categoría y consejo aleatorio
+    let pool;
     if (income === 0 && expense === 0) {
-        advice = "Empieza a registrar tus movimientos para recibir consejos personalizados de ahorro.";
-    } else if (ratio > 0.9) {
-        advice = "⚠️ Tus gastos están muy cerca de tus ingresos. Te recomiendo revisar los gastos no esenciales y aplicar la regla del 50/30/20.";
-    } else if (ratio < 0.5 && income > 0) {
-        advice = "✨ ¡Excelente gestión! Estás ahorrando más del 50% de tus ingresos. Podrías considerar invertir una parte de este capital.";
+        pool = tipsEmpty;
     } else if (expense > income) {
-        advice = "❗ Alerta: Estás gastando más de lo que ganas. Es vital identificar 'gastos hormiga' para estabilizar tu balance este mes.";
+        pool = tipsDeficit;
+    } else if (ratio > 0.9) {
+        pool = tipsCritical;
+    } else if (ratio < 0.5 && income > 0) {
+        pool = tipsExcellent;
     } else {
-        advice = "Buen trabajo manteniendo el balance. Para maximizar tu ahorro, intenta automatizar una transferencia a tu cuenta de ahorros apenas recibas ingresos.";
+        pool = tipsBalanced;
     }
 
+    const advice = pool[Math.floor(Math.random() * pool.length)];
     aiInsightText.innerHTML = `<p>"${advice}"</p>`;
 }
 function exportToPDF() {
