@@ -3,8 +3,10 @@
 ========================================= */
 :root {
     /* Brand Colors */
-    --color-primary: #4338ca; /* Indigo 700 */
-    --color-primary-hover: #3730a3;
+    --color-primary: #2a2b72; /* Indigo profundo (más azulado) */
+    --color-primary-hover: #1c1d54;
+    --color-accent: #06b6d4; /* Turquesa vibrante para pequeños acentos */
+    --color-accent-hover: #0891b2;
     --color-success: #10b981; /* Emerald 500 */
     --color-success-bg: #d1fae5;
     --color-danger: #ef4444; /* Red 500 */
@@ -137,7 +139,7 @@ body {
    💰 BALANCE Y RESUMEN
 ========================================= */
 .balance-card {
-    background: linear-gradient(135deg, var(--color-primary), #6366f1);
+    background: linear-gradient(135deg, var(--color-primary), #5b21b6); /* Indigo a Violeta Profundo */
     color: white;
     text-align: center;
     padding: 40px 25px;
@@ -253,8 +255,8 @@ input, select {
 
 input:focus, select:focus {
     outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.1);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
 }
 
 /* =========================================
@@ -709,7 +711,7 @@ input:focus, select:focus {
     background: var(--color-primary);
     border-color: var(--color-primary);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(67, 56, 202, 0.3);
+    box-shadow: 0 4px 12px rgba(42, 43, 114, 0.3);
 }
 
 .nav-link-btn.donate-link:hover {
@@ -774,7 +776,7 @@ input:focus, select:focus {
 .ai-insights-card {
     border: 1px solid transparent;
     background-image: linear-gradient(var(--bg-card), var(--bg-card)), 
-                       linear-gradient(135deg, var(--color-primary), #ec4899);
+                       linear-gradient(135deg, var(--color-primary), #5b21b6);
     background-origin: border-box;
     background-clip: padding-box, border-box;
     position: relative;
