@@ -606,6 +606,29 @@
                 emailClickCopy.addEventListener('click', performEmailCopy);
             }
 
+            // --- Redactar correo con fallback inteligente ---
+            const btnRedactarCorreo = document.getElementById('btn-redactar-correo');
+            if (btnRedactarCorreo) {
+                btnRedactarCorreo.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Copiar al portapapeles como respaldo
+                    navigator.clipboard.writeText('finanzasprorecycon@gmail.com');
+                    
+                    // Abrir Gmail Web en una nueva pestaña
+                    const gmailUrl = "https://mail.google.com/mail/?view=cm&fs=1&to=finanzasprorecycon@gmail.com&su=Feedback%20y%20Recomendaciones%20-%20FinanzasPro";
+                    window.open(gmailUrl, '_blank');
+                    
+                    // Intentar abrir cliente local también por si acaso (sin interrumpir la navegación)
+                    const mailtoUrl = "mailto:finanzasprorecycon@gmail.com?subject=Feedback%20y%20Recomendaciones%20-%20FinanzasPro";
+                    const iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = mailtoUrl;
+                    document.body.appendChild(iframe);
+                    setTimeout(() => iframe.remove(), 1000);
+                });
+            }
+
             // Mobile Menu Toggle Logic
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');

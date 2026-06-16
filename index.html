@@ -754,6 +754,7 @@
             const footerEmailLink = document.querySelector('a[href^="mailto:finanzasprorecycon"]');
             if (footerEmailLink) {
                 footerEmailLink.addEventListener('click', (e) => {
+                    e.preventDefault();
                     // Copiar al portapapeles
                     navigator.clipboard.writeText('finanzasprorecycon@gmail.com').then(() => {
                         showPremiumToast('¡Correo copiado al portapapeles con éxito!');
